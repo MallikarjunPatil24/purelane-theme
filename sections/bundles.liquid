@@ -1,0 +1,396 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .bundles-section-{{ section.id }} {
+    position: relative;
+  }
+
+  .bundles-section-{{ section.id }} .tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2.5rem;
+    align-items: stretch;
+    margin-top: 3.5rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .bundles-section-{{ section.id }} .tiers-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+    }
+  }
+
+  .bundles-section-{{ section.id }} .tier-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: var(--media-radius, 1.6rem);
+    background: rgba(var(--color-foreground), 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    padding: 3.5rem 2.5rem 2.5rem;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .bundles-section-{{ section.id }} .tier-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Featured Tier Card Treatment */
+  .bundles-section-{{ section.id }} .tier-card--featured {
+    background: rgba(var(--color-foreground), 0.06);
+    border: 2px solid #65a30d;
+    box-shadow: 0 12px 30px rgba(101, 163, 13, 0.15);
+  }
+
+  @media screen and (min-width: 990px) {
+    .bundles-section-{{ section.id }} .tier-card--featured {
+      transform: scale(1.04);
+      margin-top: -0.5rem;
+      margin-bottom: -0.5rem;
+    }
+
+    .bundles-section-{{ section.id }} .tier-card--featured:hover {
+      transform: scale(1.06) translateY(-4px);
+      box-shadow: 0 20px 40px rgba(101, 163, 13, 0.25);
+    }
+  }
+
+  /* Tag / Badge Pill */
+  .bundles-section-{{ section.id }} .tier-tag {
+    position: absolute;
+    top: -1.3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #65a30d;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.4rem 1.2rem;
+    border-radius: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .bundles-section-{{ section.id }} .tier-card:not(.tier-card--featured) .tier-tag {
+    background-color: rgba(var(--color-foreground), 0.85);
+    color: rgba(var(--color-background), 1);
+  }
+
+  /* Card Content */
+  .bundles-section-{{ section.id }} .tier-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .bundles-section-{{ section.id }} .tier-qty {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(var(--color-foreground), 0.7);
+    margin-bottom: 0.8rem;
+  }
+
+  .bundles-section-{{ section.id }} .tier-price-wrapper {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  .bundles-section-{{ section.id }} .tier-price {
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .bundles-section-{{ section.id }} .tier-compare-price {
+    font-size: 1.8rem;
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+
+  /* Features List */
+  .bundles-section-{{ section.id }} .tier-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.5rem;
+  }
+
+  .bundles-section-{{ section.id }} .tier-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+  }
+
+  .bundles-section-{{ section.id }} .tier-feature-item svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+    color: #65a30d;
+  }
+
+  /* Actions */
+  .bundles-section-{{ section.id }} .tier-actions {
+    margin-top: auto;
+  }
+
+  .bundles-section-{{ section.id }} .tier-card a.button:focus-visible {
+    outline: 2px solid rgba(var(--color-foreground), 1);
+    outline-offset: 3px;
+  }
+{%- endstyle -%}
+
+<div class="bundles-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    
+    {%- render 'section-header',
+      kicker: section.settings.kicker,
+      heading: section.settings.heading,
+      subheading: section.settings.subheading
+    -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="tiers-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'tier' -%}
+            {%- liquid
+              assign flat_price_cents = block.settings.flat_price | times: 100
+              assign compare_price_cents = block.settings.compare_at_price | times: 100
+            -%}
+
+            <div class="tier-card{% if block.settings.is_featured %} tier-card--featured{% endif %}" {{ block.shopify_attributes }}>
+              {%- if block.settings.tag != blank -%}
+                <span class="pill tier-tag">{{ block.settings.tag | escape }}</span>
+              {%- endif -%}
+
+              <div class="tier-header">
+                <div class="tier-qty">
+                  {{ block.settings.product_count }} Product{% if block.settings.product_count != 1 %}s{% endif %}
+                </div>
+
+                <div class="tier-price-wrapper">
+                  <span class="tier-price">{{ flat_price_cents | money }}</span>
+                  {%- if compare_price_cents > flat_price_cents -%}
+                    <s class="tier-compare-price">{{ compare_price_cents | money }}</s>
+                  {%- endif -%}
+                </div>
+              </div>
+
+              {%- if block.settings.features != blank -%}
+                {%- assign feature_lines = block.settings.features | newline_to_br | split: '<br />' -%}
+                <ul class="tier-features" role="list">
+                  {%- for line in feature_lines -%}
+                    {%- assign trimmed_line = line | strip_html | strip -%}
+                    {%- if trimmed_line != blank -%}
+                      <li class="tier-feature-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-checkmark" viewBox="0 0 12 9" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M11.35.643a.5.5 0 0 1 .006.707l-6.77 6.886a.5.5 0 0 1-.719-.006L.638 4.845a.5.5 0 1 1 .724-.69l2.872 3.011 6.41-6.517a.5.5 0 0 1 .707-.006z" clip-rule="evenodd"/></svg>
+                        <span>{{ trimmed_line | escape }}</span>
+                      </li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+
+              <div class="tier-actions">
+                <a
+                  href="{{ block.settings.button_link | default: '#shop' }}"
+                  class="button button--full-width{% if block.settings.is_featured %} button--primary{% else %} button--secondary{% endif %}"
+                >
+                  {{ block.settings.button_label | default: 'Build this box' | escape }}
+                </a>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Bundles",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker / Eyebrow",
+      "default": "Build your bundle"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "One box. Every room."
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Sub-headline / Lede",
+      "default": "<p>Choose your essentials, customize your routine, and save big on every shipment.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Style & Layout"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Bundle Tier",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tier tag / Badge",
+          "default": "Starter"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_featured",
+          "label": "Highlight as featured tier",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "product_count",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 3,
+          "label": "Number of products included"
+        },
+        {
+          "type": "number",
+          "id": "flat_price",
+          "label": "Flat bundle price",
+          "default": 1299
+        },
+        {
+          "type": "number",
+          "id": "compare_at_price",
+          "label": "Compare-at price",
+          "default": 1699
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "Feature bullet points (one per line)",
+          "default": "Pick any 3 products\nFree shipping + 1 free refill\nSave ₹400 (Best value)"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Build this box"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundles",
+      "blocks": [
+        {
+          "type": "tier",
+          "settings": {
+            "tag": "Starter",
+            "is_featured": false,
+            "product_count": 2,
+            "flat_price": 899,
+            "compare_at_price": 1099,
+            "features": "Pick any 2 products\nFree shipping included\nSave ₹200 vs buying single items",
+            "button_label": "Build this box"
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "tag": "Most popular",
+            "is_featured": true,
+            "product_count": 3,
+            "flat_price": 1299,
+            "compare_at_price": 1699,
+            "features": "Pick any 3 products\nFree shipping + 1 free refill\nSave ₹400 (Best value)",
+            "button_label": "Build this box"
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "tag": "Whole home",
+            "is_featured": false,
+            "product_count": 5,
+            "flat_price": 1999,
+            "compare_at_price": 2699,
+            "features": "Pick any 5 products\nFree shipping + 2 free refills\nSave ₹700 (Max savings)",
+            "button_label": "Build this box"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
