@@ -1,0 +1,680 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .combos-section-{{ section.id }} {
+    position: relative;
+  }
+
+  .combos-section-{{ section.id }} .comborail-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .combos-section-{{ section.id }} .comborail {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 1rem 0 2rem;
+    scrollbar-width: none;
+  }
+
+  .combos-section-{{ section.id }} .comborail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .combos-section-{{ section.id }} .combo {
+    flex: 0 0 85%;
+    max-width: 420px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: var(--media-radius, 1.6rem);
+    background: rgba(var(--color-foreground), 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    padding: 2.5rem;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  @media screen and (min-width: 750px) {
+    .combos-section-{{ section.id }} .combo {
+      flex: 0 0 380px;
+    }
+  }
+
+  .combos-section-{{ section.id }} .combo:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  .combos-section-{{ section.id }} .combo-flag {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background-color: #65a30d;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .combos-section-{{ section.id }} .tray {
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+  }
+
+  .combos-section-{{ section.id }} .stack {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .combos-section-{{ section.id }} .stack-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 85px;
+  }
+
+  .combos-section-{{ section.id }} .stack-item--sold-out {
+    opacity: 0.55;
+  }
+
+  .combos-section-{{ section.id }} .stack-item-image {
+    position: relative;
+    width: 75px;
+    height: 75px;
+    border-radius: 1rem;
+    background: rgba(var(--color-foreground), 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .combos-section-{{ section.id }} .stack-item-image img,
+  .combos-section-{{ section.id }} .stack-item-image svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .combos-section-{{ section.id }} .sold-out-badge {
+    position: absolute;
+    bottom: -0.4rem;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.4rem;
+    text-transform: uppercase;
+  }
+
+  .combos-section-{{ section.id }} .stack-item-caption {
+    font-size: 1.1rem;
+    line-height: 1.2;
+    font-weight: 500;
+    opacity: 0.85;
+  }
+
+  .combos-section-{{ section.id }} .plus {
+    font-size: 1.8rem;
+    font-weight: 400;
+    opacity: 0.4;
+    margin-top: -1.5rem;
+  }
+
+  .combos-section-{{ section.id }} .combo-header-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .combos-section-{{ section.id }} .combo-title {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+
+  .combos-section-{{ section.id }} .combo-count {
+    font-size: 1.2rem;
+    font-weight: 600;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .combos-section-{{ section.id }} .combo-description {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    opacity: 0.85;
+    margin-bottom: 1.5rem;
+  }
+
+  .combos-section-{{ section.id }} .combo-price-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .combos-section-{{ section.id }} .combo-price {
+    font-weight: 700;
+  }
+
+  .combos-section-{{ section.id }} .combo-compare-price {
+    text-decoration: line-through;
+    opacity: 0.55;
+    font-size: 1.5rem;
+  }
+
+  .combos-section-{{ section.id }} .savings-tag {
+    background-color: rgba(101, 163, 13, 0.15);
+    color: #4d7c0f;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 0.2rem 0.7rem;
+    border-radius: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  .combos-section-{{ section.id }} .combo-fine-print {
+    font-size: 1.1rem;
+    opacity: 0.65;
+    margin-bottom: 1.8rem;
+  }
+
+  .combos-section-{{ section.id }} .swipecue {
+    text-align: center;
+    font-size: 1.2rem;
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .combos-section-{{ section.id }} .combo a.button:focus-visible {
+    outline: 2px solid rgba(var(--color-foreground), 1);
+    outline-offset: 3px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .combos-section-{{ section.id }} .swipecue {
+      display: none;
+    }
+  }
+
+  /* Empty state for theme editor */
+  .combos-section-{{ section.id }} .combo-empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 1rem;
+    border: 1px dashed rgba(var(--color-foreground), 0.2);
+    border-radius: 1rem;
+    font-size: 1.3rem;
+    opacity: 0.75;
+  }
+{%- endstyle -%}
+
+<div class="combos-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    
+    {%- render 'section-header',
+      kicker: section.settings.kicker,
+      heading: section.settings.heading,
+      subheading: section.settings.subheading
+    -%}
+
+    <div class="comborail-wrapper">
+      <div class="comborail" tabindex="0" aria-label="{{ section.settings.heading | strip_html | escape }}">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'combo' -%}
+            {%- liquid
+              assign sum_price = 0
+              assign sum_compare_price = 0
+              assign filled_count = 0
+              assign permalink_items = ''
+
+              if block.settings.product_1 != blank
+                assign p1 = block.settings.product_1
+                assign v1 = p1.selected_or_first_available_variant
+                assign sum_price = sum_price | plus: p1.price
+                assign p1_comp = p1.compare_at_price | default: p1.price
+                assign sum_compare_price = sum_compare_price | plus: p1_comp
+                assign filled_count = filled_count | plus: 1
+                if v1.available
+                  if permalink_items != ''
+                    assign permalink_items = permalink_items | append: ','
+                  endif
+                  assign permalink_items = permalink_items | append: v1.id | append: ':1'
+                endif
+              endif
+
+              if block.settings.product_2 != blank
+                assign p2 = block.settings.product_2
+                assign v2 = p2.selected_or_first_available_variant
+                assign sum_price = sum_price | plus: p2.price
+                assign p2_comp = p2.compare_at_price | default: p2.price
+                assign sum_compare_price = sum_compare_price | plus: p2_comp
+                assign filled_count = filled_count | plus: 1
+                if v2.available
+                  if permalink_items != ''
+                    assign permalink_items = permalink_items | append: ','
+                  endif
+                  assign permalink_items = permalink_items | append: v2.id | append: ':1'
+                endif
+              endif
+
+              if block.settings.product_3 != blank
+                assign p3 = block.settings.product_3
+                assign v3 = p3.selected_or_first_available_variant
+                assign sum_price = sum_price | plus: p3.price
+                assign p3_comp = p3.compare_at_price | default: p3.price
+                assign sum_compare_price = sum_compare_price | plus: p3_comp
+                assign filled_count = filled_count | plus: 1
+                if v3.available
+                  if permalink_items != ''
+                    assign permalink_items = permalink_items | append: ','
+                  endif
+                  assign permalink_items = permalink_items | append: v3.id | append: ':1'
+                endif
+              endif
+
+              if block.settings.product_4 != blank
+                assign p4 = block.settings.product_4
+                assign v4 = p4.selected_or_first_available_variant
+                assign sum_price = sum_price | plus: p4.price
+                assign p4_comp = p4.compare_at_price | default: p4.price
+                assign sum_compare_price = sum_compare_price | plus: p4_comp
+                assign filled_count = filled_count | plus: 1
+                if v4.available
+                  if permalink_items != ''
+                    assign permalink_items = permalink_items | append: ','
+                  endif
+                  assign permalink_items = permalink_items | append: v4.id | append: ':1'
+                endif
+              endif
+
+              if block.settings.product_5 != blank
+                assign p5 = block.settings.product_5
+                assign v5 = p5.selected_or_first_available_variant
+                assign sum_price = sum_price | plus: p5.price
+                assign p5_comp = p5.compare_at_price | default: p5.price
+                assign sum_compare_price = sum_compare_price | plus: p5_comp
+                assign filled_count = filled_count | plus: 1
+                if v5.available
+                  if permalink_items != ''
+                    assign permalink_items = permalink_items | append: ','
+                  endif
+                  assign permalink_items = permalink_items | append: v5.id | append: ':1'
+                endif
+              endif
+
+              assign permalink_url = '#'
+              if permalink_items != ''
+                assign permalink_url = '/cart/' | append: permalink_items
+              endif
+              assign savings_amount = sum_compare_price | minus: sum_price
+            -%}
+
+            {%- if filled_count > 0 or request.design_mode -%}
+              <div class="combo" {{ block.shopify_attributes }}>
+                {%- if block.settings.flag != blank -%}
+                  <span class="pill combo-flag">{{ block.settings.flag | escape }}</span>
+                {%- endif -%}
+
+                <div class="tray">
+                  <div class="stack">
+                    {%- assign rendered_items = 0 -%}
+                    {%- for i in (1..5) -%}
+                      {%- liquid
+                        assign p_key = 'product_' | append: i
+                        assign c_key = 'caption_' | append: i
+                        assign current_product = block.settings[p_key]
+                        assign current_caption = block.settings[c_key]
+                      -%}
+
+                      {%- if current_product != blank or current_caption != blank -%}
+                        {%- if rendered_items > 0 -%}
+                          <span class="plus" aria-hidden="true">+</span>
+                        {%- endif -%}
+
+                        <div class="stack-item{% if current_product != blank and current_product.available == false %} stack-item--sold-out{% endif %}">
+                          <div class="stack-item-image">
+                            {%- if current_product != blank and current_product.featured_image != blank -%}
+                              {{ current_product.featured_image | image_url: width: 200 | image_tag: loading: 'lazy', sizes: '80px', widths: '80, 120, 160, 200', alt: current_product.title | escape }}
+                            {%- else -%}
+                              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {%- endif -%}
+
+                            {%- if current_product != blank and current_product.available == false -%}
+                              <span class="sold-out-badge">Sold out</span>
+                            {%- endif -%}
+                          </div>
+
+                          {%- if current_caption != blank -%}
+                            <div class="stack-item-caption">{{ current_caption | escape }}</div>
+                          {%- endif -%}
+                        </div>
+
+                        {%- assign rendered_items = rendered_items | plus: 1 -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+
+                <div class="combo-body">
+                  <div class="combo-header-row">
+                    <h3 class="combo-title">{{ block.settings.title | default: 'Combo Pack' | escape }}</h3>
+                    <span class="combo-count">{{ filled_count }} product{% if filled_count != 1 %}s{% endif %}</span>
+                  </div>
+
+                  {%- if block.settings.description != blank -%}
+                    <div class="combo-description rte">
+                      {{ block.settings.description }}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if filled_count > 0 -%}
+                    <div class="combo-price-row">
+                      <span class="combo-price">{{ sum_price | money }}</span>
+                      {%- if sum_compare_price > sum_price -%}
+                        <s class="combo-compare-price">{{ sum_compare_price | money }}</s>
+                      {%- endif -%}
+                      {%- if savings_amount > 0 -%}
+                        <span class="savings-tag">Save {{ savings_amount | money }}</span>
+                      {%- endif -%}
+                    </div>
+
+                    <div class="combo-fine-print">
+                      Inclusive of all taxes · COD available
+                    </div>
+
+                    <div class="combo-actions">
+                      <a
+                        href="{{ permalink_url }}"
+                        class="button button--full-width{% if block.settings.button_style == 'primary' %} button--primary{% else %} button--secondary{% endif %}"
+                        {% if permalink_items == '' %}aria-disabled="true" role="link"{% endif %}
+                      >
+                        {{ block.settings.button_label | default: 'Add Combo to Cart' | escape }}
+                      </a>
+                    </div>
+                  {%- elsif request.design_mode -%}
+                    <div class="combo-empty-state">
+                      <p>Add products to this combo</p>
+                    </div>
+                  {%- endif -%}
+                </div>
+
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="swipecue" aria-hidden="true">
+        ← Swipe to explore combos →
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Combos",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker / Eyebrow",
+      "default": "Pre-built to save you money"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Best selling combos"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Sub-headline / Lede",
+      "default": "<p>Bundle up on non-toxic homecare essentials and save big on everyday cleaning routines.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Style & Layout"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "combo",
+      "name": "Combo Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "flag",
+          "label": "Flag / Badge label",
+          "default": "Most popular",
+          "info": "Optional badge pill (e.g. Most popular, Best value). Leave blank to hide."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Combo title",
+          "default": "Kitchen essentials"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Everything you need for a grease-free, sparkling kitchen.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Product 1"
+        },
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "text",
+          "id": "caption_1",
+          "label": "Product 1 marketing caption",
+          "default": "Cuts grease instantly"
+        },
+        {
+          "type": "header",
+          "content": "Product 2"
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "text",
+          "id": "caption_2",
+          "label": "Product 2 marketing caption",
+          "default": "Ultra-concentrated formula"
+        },
+        {
+          "type": "header",
+          "content": "Product 3"
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "text",
+          "id": "caption_3",
+          "label": "Product 3 marketing caption",
+          "default": "Removes hard water stains"
+        },
+        {
+          "type": "header",
+          "content": "Product 4"
+        },
+        {
+          "type": "product",
+          "id": "product_4",
+          "label": "Product 4"
+        },
+        {
+          "type": "text",
+          "id": "caption_4",
+          "label": "Product 4 marketing caption"
+        },
+        {
+          "type": "header",
+          "content": "Product 5"
+        },
+        {
+          "type": "product",
+          "id": "product_5",
+          "label": "Product 5"
+        },
+        {
+          "type": "text",
+          "id": "caption_5",
+          "label": "Product 5 marketing caption"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Add Combo to Cart"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            }
+          ],
+          "default": "secondary"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Combos",
+      "blocks": [
+        {
+          "type": "combo",
+          "settings": {
+            "flag": "Most popular",
+            "title": "Kitchen essentials",
+            "description": "<p>Everything you need for a grease-free, sparkling kitchen.</p>",
+            "caption_1": "Cuts grease instantly",
+            "caption_2": "Ultra-concentrated formula",
+            "caption_3": "Removes hard water stains"
+          }
+        },
+        {
+          "type": "combo",
+          "settings": {
+            "flag": "Best value",
+            "title": "Laundry care bundle",
+            "description": "<p>Gentle on fabrics, tough on stains. Plant-based laundry care.</p>",
+            "caption_1": "Stain removal booster",
+            "caption_2": "Natural fabric softener"
+          }
+        },
+        {
+          "type": "combo",
+          "settings": {
+            "flag": "Save 25%",
+            "title": "Complete home bundle",
+            "description": "<p>Full range of plant-based cleaning solutions for every room.</p>",
+            "caption_1": "Multi-surface cleaner",
+            "caption_2": "Glass & mirror shine",
+            "caption_3": "Bathroom deep clean",
+            "caption_4": "Floor sanitizing liquid"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

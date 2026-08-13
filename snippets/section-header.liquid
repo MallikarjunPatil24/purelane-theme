@@ -1,0 +1,31 @@
+{% comment %}
+  Renders section header with kicker, heading, rule, and optional subheading.
+  Accepts:
+  - kicker: {String} [optional] Kicker / eyebrow text
+  - heading: {String} Heading text (supports inline richtext)
+  - heading_size: {String} [optional] Heading size class (default: 'h1')
+  - subheading: {String} [optional] Subheading richtext content
+  - custom_class: {String} [optional] Extra wrapper CSS class
+{% endcomment %}
+
+{%- if kicker != blank or heading != blank or subheading != blank -%}
+  <div class="section-header panel-head{% if custom_class %} {{ custom_class }}{% endif %}">
+    {%- if kicker != blank -%}
+      <div class="kicker">{{ kicker | escape }}</div>
+    {%- endif -%}
+
+    {%- if heading != blank -%}
+      <h2 class="section-heading inline-richtext {{ heading_size | default: 'h1' }}">
+        {{ heading }}
+      </h2>
+    {%- endif -%}
+
+    <div class="rule"></div>
+
+    {%- if subheading != blank -%}
+      <div class="subheading rte">
+        {{ subheading }}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
