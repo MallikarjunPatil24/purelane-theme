@@ -1,0 +1,954 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .hero-section-{{ section.id }} {
+    position: relative;
+    overflow: hidden;
+  }
+
+  {%- if section.settings.scene_style == 'gradient' -%}
+    .hero-section-{{ section.id }} {
+      background: {{ section.settings.background_gradient | default: 'radial-gradient(circle at 50% 30%, rgba(101, 163, 13, 0.15), transparent 70%)' }};
+    }
+  {%- elsif section.settings.scene_style == 'glow' -%}
+    .hero-section-{{ section.id }} {
+      background: radial-gradient(circle at 50% 50%, rgba(var(--color-foreground), 0.05) 0%, transparent 60%);
+    }
+  {%- endif -%}
+
+  .hero-section-{{ section.id }} .hero-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 990px) {
+    .hero-section-{{ section.id }} .hero-container {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+    }
+  }
+
+  /* Badges (Top Cluster) */
+  .hero-section-{{ section.id }} .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-section-{{ section.id }} .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.3rem;
+    line-height: 1.2;
+  }
+
+  .hero-section-{{ section.id }} .badge-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background-color: rgba(var(--color-foreground), 0.08);
+    color: currentColor;
+    flex-shrink: 0;
+  }
+
+  .hero-section-{{ section.id }} .badge-icon svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .hero-section-{{ section.id }} .badge-text {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+  }
+
+  .hero-section-{{ section.id }} .badge-line-1 {
+    opacity: 0.75;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-section-{{ section.id }} .badge-line-2 {
+    font-weight: 600;
+  }
+
+  /* Kicker, Heading, Rule & Subheading */
+  .hero-section-{{ section.id }} .kicker {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .hero-section-{{ section.id }} .hero-heading {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-section-{{ section.id }} .hero-heading em,
+  .hero-section-{{ section.id }} .hero-heading span {
+    font-style: normal;
+    color: #65a30d;
+    background: linear-gradient(135deg, #65a30d 0%, #3f6212 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-section-{{ section.id }} .rule {
+    width: 5rem;
+    height: 0.2rem;
+    background-color: currentColor;
+    opacity: 0.25;
+    margin: 1.5rem 0;
+    border: none;
+  }
+
+  .hero-section-{{ section.id }} .subheading {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    opacity: 0.85;
+  }
+
+  /* Buttons */
+  .hero-section-{{ section.id }} .hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Compact Badgestrip beneath CTAs */
+  .hero-section-{{ section.id }} .badgestrip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(var(--color-foreground), 0.12);
+  }
+
+  .hero-section-{{ section.id }} .badgestrip .badge {
+    font-size: 1.2rem;
+  }
+
+  .hero-section-{{ section.id }} .badgestrip .badge-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  /* Hero Product Stage */
+  .hero-section-{{ section.id }} .hero-stage-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-section-{{ section.id }} .hero-stage {
+    position: relative;
+    width: 100%;
+    min-height: 380px;
+    border-radius: var(--media-radius, 1.6rem);
+    background: rgba(var(--color-foreground), 0.03);
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .hero-section-{{ section.id }} .hslide {
+    position: absolute;
+    inset: 0;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: translateY(10px);
+  }
+
+  .hero-section-{{ section.id }} .hslide.on {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .hero-section-{{ section.id }} .hslide-images {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    height: 240px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-section-{{ section.id }} .hslide-image-item {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  .hero-section-{{ section.id }} .hslide-image-item img,
+  .hero-section-{{ section.id }} .hslide-image-item svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.18));
+  }
+
+  /* 1-product layout: single large product centered */
+  .hero-section-{{ section.id }} .hslide-images[data-product-count="1"] .hslide-image-item,
+  .hero-section-{{ section.id }} .hslide-images[data-product-count="0"] .hslide-image-item {
+    width: 180px;
+    height: 230px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  /* 2-product layout: staggered overlap */
+  .hero-section-{{ section.id }} .hslide-images[data-product-count="2"] .hslide-image-item--d1 {
+    width: 160px;
+    height: 210px;
+    top: 50%;
+    left: 36%;
+    transform: translate(-50%, -46%) rotate(-4deg);
+    z-index: 2;
+  }
+
+  .hero-section-{{ section.id }} .hslide-images[data-product-count="2"] .hslide-image-item--d2 {
+    width: 135px;
+    height: 180px;
+    top: 50%;
+    left: 64%;
+    transform: translate(-50%, -52%) rotate(6deg);
+    z-index: 1;
+    opacity: 0.9;
+  }
+
+  /* 3-product layout: fanned stack */
+  .hero-section-{{ section.id }} .hslide-images[data-product-count="3"] .hslide-image-item--d1 {
+    width: 150px;
+    height: 200px;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -44%) rotate(-6deg);
+    z-index: 3;
+  }
+
+  .hero-section-{{ section.id }} .hslide-images[data-product-count="3"] .hslide-image-item--d2 {
+    width: 130px;
+    height: 175px;
+    top: 50%;
+    left: 52%;
+    transform: translate(-50%, -50%) rotate(2deg);
+    z-index: 2;
+    opacity: 0.95;
+  }
+
+  .hero-section-{{ section.id }} .hslide-images[data-product-count="3"] .hslide-image-item--d3 {
+    width: 110px;
+    height: 150px;
+    top: 50%;
+    left: 72%;
+    transform: translate(-50%, -56%) rotate(8deg);
+    z-index: 1;
+    opacity: 0.88;
+  }
+
+  .hero-section-{{ section.id }} .hslide-info {
+    text-align: center;
+  }
+
+  .hero-section-{{ section.id }} .hslide-label {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-section-{{ section.id }} .hslide-price-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    font-size: 1.6rem;
+  }
+
+  .hero-section-{{ section.id }} .hslide-price {
+    font-weight: 700;
+  }
+
+  .hero-section-{{ section.id }} .hslide-compare-price {
+    text-decoration: line-through;
+    opacity: 0.6;
+    font-size: 1.4rem;
+  }
+
+  .hero-section-{{ section.id }} .hslide-discount-tag {
+    background-color: #65a30d;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Navigation Dots */
+  .hero-section-{{ section.id }} .hdots {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    z-index: 2;
+  }
+
+  .hero-section-{{ section.id }} .hdot {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    border: 2px solid rgba(var(--color-foreground), 0.3);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .hero-section-{{ section.id }} .hdot.on,
+  .hero-section-{{ section.id }} .hdot[aria-current="true"] {
+    background-color: rgba(var(--color-foreground), 0.9);
+    border-color: rgba(var(--color-foreground), 0.9);
+    transform: scale(1.2);
+  }
+
+  .hero-section-{{ section.id }} .hdot:focus-visible {
+    outline: 2px solid rgba(var(--color-foreground), 1);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-section-{{ section.id }} .hslide {
+      transition: none !important;
+      transform: none !important;
+    }
+    .hero-section-{{ section.id }} .hdot {
+      transition: none !important;
+    }
+  }
+{%- endstyle -%}
+
+<hero-slider-component class="hero-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding" style="display: block;">
+  <div class="page-width">
+    <div class="hero-container">
+      
+      {%- comment -%} Left Column: Badges & Copy Block {%- endcomment -%}
+      <div class="hero-content-column">
+        {%- comment -%} Top Trust Badge Cluster {%- endcomment -%}
+        {%- render 'hero-trust-badges', section: section, wrapper_class: 'badges' -%}
+
+        {%- if section.settings.kicker != blank -%}
+          <div class="kicker">{{ section.settings.kicker | escape }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h1 class="hero-heading {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h1>
+        {%- endif -%}
+
+        <div class="rule"></div>
+
+        {%- if section.settings.subheading != blank -%}
+          <div class="subheading rte">
+            {{ section.settings.subheading }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label_1 != blank or section.settings.button_label_2 != blank -%}
+          <div class="hero-buttons">
+            {%- if section.settings.button_label_1 != blank -%}
+              <a
+                {% if section.settings.button_link_1 == blank %}
+                  role="link" aria-disabled="true"
+                {% else %}
+                  href="{{ section.settings.button_link_1 }}"
+                {% endif %}
+                class="button{% if section.settings.button_style_1 == 'secondary' %} button--secondary{% else %} button--primary{% endif %}"
+              >
+                {{- section.settings.button_label_1 | escape -}}
+              </a>
+            {%- endif -%}
+
+            {%- if section.settings.button_label_2 != blank -%}
+              <a
+                {% if section.settings.button_link_2 == blank %}
+                  role="link" aria-disabled="true"
+                {% else %}
+                  href="{{ section.settings.button_link_2 }}"
+                {% endif %}
+                class="button{% if section.settings.button_style_2 == 'secondary' %} button--secondary{% else %} button--primary{% endif %}"
+              >
+                {{- section.settings.button_label_2 | escape -}}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Compact Trust Badge Strip {%- endcomment -%}
+        {%- render 'hero-trust-badges', section: section, wrapper_class: 'badgestrip' -%}
+      </div>
+
+      {%- comment -%} Right Column: Hero Product Stage {%- endcomment -%}
+      <div class="hero-stage-wrapper">
+        <div class="hero-stage" aria-live="polite" aria-atomic="true">
+          {%- assign slide_index = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'hero_slide' -%}
+              {%- liquid
+                assign slide_price = 0
+                assign slide_compare_price = 0
+                assign product_count = 0
+
+                if block.settings.product_1 != blank
+                  assign p1 = block.settings.product_1
+                  assign slide_price = slide_price | plus: p1.price
+                  assign p1_compare = p1.compare_at_price | default: p1.price
+                  assign slide_compare_price = slide_compare_price | plus: p1_compare
+                  assign product_count = product_count | plus: 1
+                endif
+
+                if block.settings.product_2 != blank
+                  assign p2 = block.settings.product_2
+                  assign slide_price = slide_price | plus: p2.price
+                  assign p2_compare = p2.compare_at_price | default: p2.price
+                  assign slide_compare_price = slide_compare_price | plus: p2_compare
+                  assign product_count = product_count | plus: 1
+                endif
+
+                if block.settings.product_3 != blank
+                  assign p3 = block.settings.product_3
+                  assign slide_price = slide_price | plus: p3.price
+                  assign p3_compare = p3.compare_at_price | default: p3.price
+                  assign slide_compare_price = slide_compare_price | plus: p3_compare
+                  assign product_count = product_count | plus: 1
+                endif
+              -%}
+
+              <div
+                class="hslide{% if slide_index == 0 %} on{% endif %}"
+                data-slide-index="{{ slide_index }}"
+                aria-hidden="{% if slide_index == 0 %}false{% else %}true{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                <div class="hslide-images" data-product-count="{{ product_count }}">
+                  {%- if product_count > 0 -%}
+                    {%- if block.settings.product_1 != blank -%}
+                      <div class="hslide-image-item hslide-image-item--d1">
+                        {%- if block.settings.product_1.featured_image != blank -%}
+                          {{ block.settings.product_1.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 300px, 150px', widths: '150, 300, 450, 600', alt: block.settings.product_1.featured_image.alt | default: block.settings.product_1.title | escape }}
+                        {%- else -%}
+                          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+
+                    {%- if block.settings.product_2 != blank -%}
+                      <div class="hslide-image-item hslide-image-item--d2">
+                        {%- if block.settings.product_2.featured_image != blank -%}
+                          {{ block.settings.product_2.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 300px, 150px', widths: '150, 300, 450, 600', alt: block.settings.product_2.featured_image.alt | default: block.settings.product_2.title | escape }}
+                        {%- else -%}
+                          {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+
+                    {%- if block.settings.product_3 != blank -%}
+                      <div class="hslide-image-item hslide-image-item--d3">
+                        {%- if block.settings.product_3.featured_image != blank -%}
+                          {{ block.settings.product_3.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 300px, 150px', widths: '150, 300, 450, 600', alt: block.settings.product_3.featured_image.alt | default: block.settings.product_3.title | escape }}
+                        {%- else -%}
+                          {{ 'product-3' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  {%- else -%}
+                    <div class="hslide-image-item hslide-image-item--d1">
+                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                <div class="hslide-info">
+                  {%- if block.settings.label != blank -%}
+                    <div class="hslide-label">{{ block.settings.label | escape }}</div>
+                  {%- endif -%}
+
+                  <div class="hslide-price-container">
+                    {%- if product_count > 0 -%}
+                      <span class="hslide-price">{{ slide_price | money }}</span>
+                      {%- if slide_compare_price > slide_price -%}
+                        <s class="hslide-compare-price">{{ slide_compare_price | money }}</s>
+                      {%- endif -%}
+                    {%- endif -%}
+
+                    {%- if block.settings.discount_tag != blank -%}
+                      <span class="hslide-discount-tag">{{ block.settings.discount_tag | escape }}</span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+
+              {%- assign slide_index = slide_index | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} Dot Navigation Buttons {%- endcomment -%}
+        {%- if slide_index > 0 -%}
+          <div class="hdots" id="hdots-{{ section.id }}">
+            {%- assign dot_index = 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'hero_slide' -%}
+                {%- liquid
+                  assign p_count = 0
+                  if block.settings.product_1 != blank
+                    assign p_count = p_count | plus: 1
+                  endif
+                  if block.settings.product_2 != blank
+                    assign p_count = p_count | plus: 1
+                  endif
+                  if block.settings.product_3 != blank
+                    assign p_count = p_count | plus: 1
+                  endif
+                -%}
+                <button
+                  type="button"
+                  class="hdot{% if dot_index == 0 %} on{% endif %}"
+                  data-index="{{ dot_index }}"
+                  aria-label="Show slide {{ dot_index | plus: 1 }}: {{ block.settings.label | escape }} ({{ p_count }} product{% if p_count != 1 %}s{% endif %})"
+                  aria-current="{% if dot_index == 0 %}true{% else %}false{% endif %}"
+                ></button>
+                {%- assign dot_index = dot_index | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</hero-slider-component>
+
+<script>
+  if (!customElements.get('hero-slider-component')) {
+    customElements.define('hero-slider-component', class HeroSliderComponent extends HTMLElement {
+      constructor() {
+        super();
+        this.init();
+      }
+
+      init() {
+        this.slides = Array.from(this.querySelectorAll('.hslide'));
+        this.dots = Array.from(this.querySelectorAll('.hdot'));
+        if (this.slides.length <= 1) return;
+
+        this.currentIndex = 0;
+        this.timer = null;
+        this.autoAdvanceSpeed = 5000;
+        this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        this.dots.forEach((dot, index) => {
+          dot.addEventListener('click', () => {
+            this.goToSlide(index);
+            this.restartAutoplay();
+          });
+        });
+
+        if (!this.reducedMotion) {
+          this.startAutoplay();
+          this.addEventListener('mouseenter', () => this.stopAutoplay());
+          this.addEventListener('mouseleave', () => this.startAutoplay());
+          this.addEventListener('focusin', () => this.stopAutoplay());
+          this.addEventListener('focusout', () => this.startAutoplay());
+        }
+      }
+
+      goToSlide(index) {
+        if (index === this.currentIndex) return;
+
+        this.slides.forEach((slide, i) => {
+          const isActive = i === index;
+          slide.classList.toggle('on', isActive);
+          slide.setAttribute('aria-hidden', !isActive);
+        });
+
+        this.dots.forEach((dot, i) => {
+          const isActive = i === index;
+          dot.classList.toggle('on', isActive);
+          dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+        });
+
+        this.currentIndex = index;
+      }
+
+      nextSlide() {
+        const nextIndex = (this.currentIndex + 1) % this.slides.length;
+        this.goToSlide(nextIndex);
+      }
+
+      startAutoplay() {
+        if (this.reducedMotion || this.timer || this.slides.length <= 1) return;
+        this.timer = setInterval(() => this.nextSlide(), this.autoAdvanceSpeed);
+      }
+
+      stopAutoplay() {
+        if (this.timer) {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+      }
+
+      restartAutoplay() {
+        this.stopAutoplay();
+        this.startAutoplay();
+      }
+
+      disconnectedCallback() {
+        this.stopAutoplay();
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker / Eyebrow",
+      "default": "100% Plant-Based Homecare"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Clean homes, <em>pure</em> living."
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        },
+        {
+          "value": "hxl",
+          "label": "Extra large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Sub-headline",
+      "default": "<p>Tough on dirt, gentle on the planet. Thoughtfully formulated with non-toxic botanical ingredients.</p>"
+    },
+    {
+      "type": "header",
+      "content": "First Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "First button label",
+      "default": "Shop All Products"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "First button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style_1",
+      "label": "First button style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "header",
+      "content": "Second Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Second button label",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Second button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style_2",
+      "label": "Second button style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        }
+      ],
+      "default": "secondary"
+    },
+    {
+      "type": "header",
+      "content": "Background & Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "scene_style",
+      "label": "Background scene style",
+      "options": [
+        {
+          "value": "gradient",
+          "label": "Animated Gradient"
+        },
+        {
+          "value": "solid",
+          "label": "Solid Color"
+        },
+        {
+          "value": "glow",
+          "label": "Soft Ambient Glow"
+        }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Custom background gradient"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hero_slide",
+      "name": "Hero Slide",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "First product"
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Second product"
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Third product"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Slide label",
+          "default": "Single bottle"
+        },
+        {
+          "type": "text",
+          "id": "discount_tag",
+          "label": "Discount tag text",
+          "default": "33% off"
+        }
+      ]
+    },
+    {
+      "type": "trust_badge",
+      "name": "Trust Badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "shield",
+              "label": "Shield"
+            },
+            {
+              "value": "sparkle",
+              "label": "Sparkle"
+            }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "text",
+          "id": "line_1",
+          "label": "Line 1 text",
+          "default": "Plant"
+        },
+        {
+          "type": "text",
+          "id": "line_2",
+          "label": "Line 2 text",
+          "default": "powered"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "leaf",
+            "line_1": "Plant",
+            "line_2": "powered"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "shield",
+            "line_1": "Safe for",
+            "line_2": "kids & pets"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "sparkle",
+            "line_1": "Zero harsh",
+            "line_2": "chemicals"
+          }
+        },
+        {
+          "type": "hero_slide",
+          "settings": {
+            "label": "Single bottle",
+            "discount_tag": ""
+          }
+        },
+        {
+          "type": "hero_slide",
+          "settings": {
+            "label": "Any 2 products",
+            "discount_tag": "Save ₹150"
+          }
+        },
+        {
+          "type": "hero_slide",
+          "settings": {
+            "label": "Any 3 products",
+            "discount_tag": "33% off"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
