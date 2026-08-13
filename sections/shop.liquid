@@ -1,0 +1,427 @@
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .shop-section-{{ section.id }} {
+    position: relative;
+  }
+
+  /* Panel Header */
+  .shop-section-{{ section.id }} .panel-head {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 3.5rem;
+  }
+
+  .shop-section-{{ section.id }} .kicker {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .shop-section-{{ section.id }} .shop-heading {
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+  }
+
+  .shop-section-{{ section.id }} .rule {
+    width: 5rem;
+    height: 0.2rem;
+    background-color: currentColor;
+    opacity: 0.25;
+    margin: 1.2rem auto 0;
+    border: none;
+  }
+
+  /* Product Grid */
+  .shop-section-{{ section.id }} .shop-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+  }
+
+  @media screen and (min-width: 550px) {
+    .shop-section-{{ section.id }} .shop-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .shop-section-{{ section.id }} .shop-grid {
+      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  /* Product Card Styles */
+  .shop-section-{{ section.id }} .product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: var(--media-radius, 1.4rem);
+    background: rgba(var(--color-foreground), 0.03);
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .shop-section-{{ section.id }} .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .shop-section-{{ section.id }} .product-card__media-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    background: rgba(var(--color-foreground), 0.02);
+    overflow: hidden;
+  }
+
+  .shop-section-{{ section.id }} .product-card__media-link {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .shop-section-{{ section.id }} .product-card__media {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .shop-section-{{ section.id }} .product-card__media img,
+  .shop-section-{{ section.id }} .product-card__media svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+  }
+
+  .shop-section-{{ section.id }} .product-card:hover .product-card__media img {
+    transform: scale(1.05);
+  }
+
+  .shop-section-{{ section.id }} .pill {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    z-index: 2;
+    background-color: #65a30d;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+  }
+
+  .shop-section-{{ section.id }} .product-card__content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1.8rem;
+  }
+
+  .shop-section-{{ section.id }} .product-card__rating {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    color: rgba(var(--color-foreground), 0.8);
+  }
+
+  .shop-section-{{ section.id }} .product-card__rating .star {
+    color: #f59e0b;
+  }
+
+  .shop-section-{{ section.id }} .product-card__title {
+    margin: 0 0 0.8rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 4.3rem;
+  }
+
+  .shop-section-{{ section.id }} .product-card__title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .shop-section-{{ section.id }} .product-card__title-link:focus-visible,
+  .shop-section-{{ section.id }} .product-card__media-link:focus-visible {
+    outline: 2px solid rgba(var(--color-foreground), 1);
+    outline-offset: 2px;
+  }
+
+  .shop-section-{{ section.id }} .product-card__price-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    margin-top: auto;
+  }
+
+  .shop-section-{{ section.id }} .product-card__price {
+    font-weight: 700;
+  }
+
+  .shop-section-{{ section.id }} .product-card__compare-price {
+    text-decoration: line-through;
+    opacity: 0.6;
+    font-size: 1.4rem;
+  }
+
+  .shop-section-{{ section.id }} .product-card__discount-tag {
+    background-color: rgba(101, 163, 13, 0.15);
+    color: #4d7c0f;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  .shop-section-{{ section.id }} .product-card__actions {
+    margin-top: 0.5rem;
+  }
+
+  .shop-section-{{ section.id }} .product-card__btn {
+    border-radius: var(--buttons-radius, 0.8rem);
+    font-weight: 600;
+  }
+
+  .shop-section-{{ section.id }} .product-card__btn:focus-visible {
+    outline: 2px solid rgba(var(--color-foreground), 1);
+    outline-offset: 3px;
+  }
+
+  /* View All Container */
+  .shop-section-{{ section.id }} .shop-footer {
+    text-align: center;
+    margin-top: 3.5rem;
+  }
+
+  /* Empty state for theme editor */
+  .shop-section-{{ section.id }} .shop-empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(var(--color-foreground), 0.02);
+    border: 1px dashed rgba(var(--color-foreground), 0.2);
+    border-radius: var(--media-radius, 1rem);
+    font-size: 1.5rem;
+    opacity: 0.75;
+  }
+{%- endstyle -%}
+
+{%- if section.settings.collection != blank or request.design_mode -%}
+  <div class="shop-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+    <div class="page-width">
+      
+      {%- comment -%} Panel Header {%- endcomment -%}
+      <div class="panel-head">
+        {%- if section.settings.kicker != blank -%}
+          <div class="kicker">{{ section.settings.kicker | escape }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="shop-heading inline-richtext h1">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+
+        <div class="rule"></div>
+      </div>
+
+      {%- if section.settings.collection != blank and section.settings.collection.products_count > 0 -%}
+        {%- comment -%} Product Grid {%- endcomment -%}
+        <div class="shop-grid">
+          {%- assign limit = section.settings.product_limit -%}
+          {%- for product in section.settings.collection.products limit: limit -%}
+            {%- liquid
+              assign badge_tag = ''
+              for tag in product.tags
+                assign downcased_tag = tag | downcase | strip
+                if downcased_tag == 'bestseller' or downcased_tag == 'best seller' or downcased_tag == 'best-seller'
+                  assign badge_tag = 'Best seller'
+                  break
+                endif
+              endfor
+
+              if badge_tag == ''
+                for tag in product.tags
+                  assign downcased_tag = tag | downcase | strip
+                  if downcased_tag == 'top-rated' or downcased_tag == 'top rated'
+                    assign badge_tag = 'Top rated'
+                    break
+                  endif
+                endfor
+              endif
+
+              if badge_tag == ''
+                for tag in product.tags
+                  assign downcased_tag = tag | downcase | strip
+                  if downcased_tag == 'new'
+                    assign badge_tag = 'New'
+                    break
+                  endif
+                endfor
+              endif
+            -%}
+            {% render 'product-card', product: product, badge_tag: badge_tag %}
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} View All Button {%- endcomment -%}
+        {%- if section.settings.button_label != blank -%}
+          <div class="shop-footer">
+            <a
+              href="{{ section.settings.button_link | default: section.settings.collection.url | default: '#' }}"
+              class="button button--primary"
+            >
+              {{ section.settings.button_label | escape }}
+            </a>
+          </div>
+        {%- endif -%}
+
+      {%- elsif request.design_mode -%}
+        {%- comment -%} Theme Editor Empty State {%- endcomment -%}
+        <div class="shop-empty-state">
+          <p>{{ 'sections.featured_collection.no_collection' | t | default: 'Select a collection to display products' }}</p>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Shop",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker / Eyebrow",
+      "default": "Bestsellers"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Loved by 30,000 homes"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Product limit"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "Number of columns on desktop"
+    },
+    {
+      "type": "header",
+      "content": "View All Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Style & Layout"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 52
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop"
+    }
+  ]
+}
+{% endschema %}
+

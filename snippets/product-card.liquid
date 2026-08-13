@@ -1,0 +1,122 @@
+{% comment %}
+  Reusable product card.
+  Accepts:
+  - product: {Object} Shopify product object
+  - badge_tag: {String} [optional] String for pill label
+  Used by: Shop, Combos, Bundles sections.
+{% endcomment %}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign is_available = product.available
+  if variant == null or variant.available == false
+    assign is_available = false
+  endif
+
+  assign rating_val = product.metafields.custom.rating.value | default: product.metafields.custom.rating
+  assign review_count = product.metafields.custom.review_count.value | default: product.metafields.custom.review_count
+  assign product_form_id = 'product-form-card-' | append: product.id | append: '-' | append: section.id
+-%}
+
+<div class="product-card{% unless is_available %} product-card--sold-out{% endunless %}">
+  {%- comment -%} Card Media & Link Wrapper {%- endcomment -%}
+  <div class="product-card__media-wrapper">
+    {%- if badge_tag != blank -%}
+      <span class="pill">{{ badge_tag | escape }}</span>
+    {%- endif -%}
+
+    <a href="{{ product.url | default: '#' }}" class="product-card__media-link" aria-label="{{ product.title | escape }}">
+      <div class="product-card__media">
+        {%- if product.featured_image != blank -%}
+          {{
+            product.featured_image
+            | image_url: width: 600
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 990px) 250px, (min-width: 750px) 33vw, 50vw',
+              widths: '200, 300, 450, 600',
+              alt: product.featured_image.alt | default: product.title | escape
+          }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    </a>
+  </div>
+
+  {%- comment -%} Card Content {%- endcomment -%}
+  <div class="product-card__content">
+    {%- if rating_val != blank and review_count != blank -%}
+      <div class="product-card__rating">
+        <span class="star" aria-hidden="true">★</span>
+        <span class="rating-value">{{ rating_val }}</span>
+        <span class="rating-separator">·</span>
+        <span class="review-count">{{ review_count }} reviews</span>
+      </div>
+    {%- endif -%}
+
+    <h3 class="product-card__title">
+      <a href="{{ product.url | default: '#' }}" class="product-card__title-link">
+        {{ product.title | default: 'Example Product Title' | escape }}
+      </a>
+    </h3>
+
+    <div class="product-card__price-container">
+      {%- if product != blank -%}
+        <span class="product-card__price">{{ product.price | money }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <s class="product-card__compare-price">{{ product.compare_at_price | money }}</s>
+          {%- assign discount_percent = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+          <span class="product-card__discount-tag">{{ discount_percent }}% off</span>
+        {%- endif -%}
+      {%- else -%}
+        <span class="product-card__price">{{ 1999 | money }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Add To Cart / Sold Out Action {%- endcomment -%}
+    <div class="product-card__actions">
+      {%- if is_available -%}
+        <product-form data-section-id="{{ section.id }}">
+          {%- form 'product',
+            product,
+            id: product_form_id,
+            class: 'form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ variant.id }}"
+              class="product-variant-id"
+            >
+            <button
+              id="{{ product_form_id }}-submit"
+              type="submit"
+              name="add"
+              class="button button--full-width button--primary product-card__btn"
+              aria-haspopup="dialog"
+              aria-live="polite"
+              data-sold-out-message="true"
+            >
+              <span>{{ 'products.product.add_to_cart' | t | default: 'Add to cart' }}</span>
+              <span class="sold-out-message hidden">
+                {{ 'products.product.sold_out' | t | default: 'Sold out' }}
+              </span>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- endform -%}
+        </product-form>
+      {%- else -%}
+        <button
+          type="button"
+          class="button button--full-width button--secondary product-card__btn product-card__btn--sold-out"
+          disabled
+        >
+          <span>{{ 'products.product.sold_out' | t | default: 'Sold out' }}</span>
+        </button>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
