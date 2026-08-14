@@ -1,0 +1,482 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .reviews-section-{{ section.id }} {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Header Section */
+  .reviews-section-{{ section.id }} .revhead {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .reviews-section-{{ section.id }} .kicker {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .reviews-section-{{ section.id }} .agg-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  .reviews-section-{{ section.id }} .agg-stars {
+    color: #f59e0b;
+    letter-spacing: 0.1em;
+    font-size: 1.8rem;
+  }
+
+  .reviews-section-{{ section.id }} .agg-rating {
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
+
+  .reviews-section-{{ section.id }} .agg-sep {
+    opacity: 0.4;
+  }
+
+  .reviews-section-{{ section.id }} .homes-count-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(101, 163, 13, 0.12);
+    color: #4d7c0f;
+    padding: 0.4rem 1.2rem;
+    border-radius: 1rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Marquee Rail & Track */
+  .reviews-section-{{ section.id }} .revrail {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .reviews-section-{{ section.id }} .revtrack {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: reviews-marquee-{{ section.id }} 45s linear infinite;
+  }
+
+  .reviews-section-{{ section.id }} .revtrack:hover,
+  .reviews-section-{{ section.id }} .revtrack:focus-within {
+    animation-play-state: paused;
+  }
+
+  @keyframes reviews-marquee-{{ section.id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Review Card */
+  .reviews-section-{{ section.id }} .rcard {
+    flex: 0 0 320px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: var(--media-radius, 1.4rem);
+    background: rgba(var(--color-foreground), 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+    padding: 2.2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  @media screen and (min-width: 750px) {
+    .reviews-section-{{ section.id }} .rcard {
+      flex: 0 0 360px;
+      width: 360px;
+      padding: 2.5rem;
+    }
+  }
+
+  .reviews-section-{{ section.id }} .rcard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  }
+
+  .reviews-section-{{ section.id }} .rcard-stars {
+    color: #f59e0b;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .reviews-section-{{ section.id }} .rcard-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 0.8rem;
+    line-height: 1.3;
+  }
+
+  .reviews-section-{{ section.id }} .rcard-quote {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+  }
+
+  .reviews-section-{{ section.id }} .rcard-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.3rem;
+    opacity: 0.75;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .reviews-section-{{ section.id }} .rcard-author svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    color: #65a30d;
+    flex-shrink: 0;
+  }
+
+  .reviews-section-{{ section.id }} .rcard-name {
+    font-weight: 600;
+  }
+
+  .reviews-section-{{ section.id }} .rcard-attr {
+    opacity: 0.7;
+  }
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .reviews-section-{{ section.id }} .revrail {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      mask-image: none;
+      -webkit-mask-image: none;
+      padding-bottom: 1.5rem;
+    }
+
+    .reviews-section-{{ section.id }} .revtrack {
+      animation: none !important;
+      width: auto;
+    }
+
+    .reviews-section-{{ section.id }} .rcard {
+      scroll-snap-align: start;
+    }
+
+    .reviews-section-{{ section.id }} .rcard[aria-hidden="true"] {
+      display: none;
+    }
+  }
+{%- endstyle -%}
+
+<div class="reviews-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    
+    {%- comment -%} Header Row {%- endcomment -%}
+    <div class="revhead">
+      {%- if section.settings.kicker != blank -%}
+        <div class="kicker">{{ section.settings.kicker | escape }}</div>
+      {%- endif -%}
+
+      <div class="agg-row">
+        <span class="agg-stars" aria-hidden="true">★★★★★</span>
+        {%- if section.settings.aggregate_rating != blank -%}
+          <span class="agg-rating">{{ section.settings.aggregate_rating | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.aggregate_review_count != blank -%}
+          <span class="agg-sep">·</span>
+          <span class="agg-count">{{ section.settings.aggregate_review_count | escape }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.homes_count != blank -%}
+        <div class="homes-count-badge">
+          {{ section.settings.homes_count | escape }}
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+
+  {%- comment -%} Marquee Rail {%- endcomment -%}
+  {%- if section.blocks.size > 0 -%}
+    <div class="revrail" role="region" aria-label="Customer reviews">
+      <div class="revtrack">
+        {%- comment -%} First Pass: Accessible Content {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' -%}
+            <div class="rcard" {{ block.shopify_attributes }}>
+              <div class="rcard-stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+                {%- for i in (1..5) -%}
+                  {%- if i <= block.settings.rating -%}
+                    ★
+                  {%- else -%}
+                    ☆
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+
+              {%- if block.settings.title != blank -%}
+                <h3 class="rcard-title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+
+              {%- if block.settings.quote != blank -%}
+                <div class="rcard-quote">
+                  “{{ block.settings.quote | escape }}”
+                </div>
+              {%- endif -%}
+
+              <div class="rcard-author">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-checkmark" viewBox="0 0 12 9" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M11.35.643a.5.5 0 0 1 .006.707l-6.77 6.886a.5.5 0 0 1-.719-.006L.638 4.845a.5.5 0 1 1 .724-.69l2.872 3.011 6.41-6.517a.5.5 0 0 1 .707-.006z" clip-rule="evenodd"/></svg>
+                <span class="rcard-name">{{ block.settings.reviewer_name | escape }}</span>
+                {%- if block.settings.attribution != blank -%}
+                  <span class="rcard-attr">· {{ block.settings.attribution | escape }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- comment -%} Second Pass: Visual Duplicate for Seamless Loop {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' -%}
+            <div class="rcard" aria-hidden="true">
+              <div class="rcard-stars">
+                {%- for i in (1..5) -%}
+                  {%- if i <= block.settings.rating -%}
+                    ★
+                  {%- else -%}
+                    ☆
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+
+              {%- if block.settings.title != blank -%}
+                <h3 class="rcard-title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+
+              {%- if block.settings.quote != blank -%}
+                <div class="rcard-quote">
+                  “{{ block.settings.quote | escape }}”
+                </div>
+              {%- endif -%}
+
+              <div class="rcard-author">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-checkmark" viewBox="0 0 12 9" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M11.35.643a.5.5 0 0 1 .006.707l-6.77 6.886a.5.5 0 0 1-.719-.006L.638 4.845a.5.5 0 1 1 .724-.69l2.872 3.011 6.41-6.517a.5.5 0 0 1 .707-.006z" clip-rule="evenodd"/></svg>
+                <span class="rcard-name">{{ block.settings.reviewer_name | escape }}</span>
+                {%- if block.settings.attribution != blank -%}
+                  <span class="rcard-attr">· {{ block.settings.attribution | escape }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker / Eyebrow",
+      "default": "That's what they said"
+    },
+    {
+      "type": "text",
+      "id": "aggregate_rating",
+      "label": "Aggregate rating",
+      "default": "4.8"
+    },
+    {
+      "type": "text",
+      "id": "aggregate_review_count",
+      "label": "Aggregate review count text",
+      "default": "8,000+ reviews"
+    },
+    {
+      "type": "text",
+      "id": "homes_count",
+      "label": "Homes count text",
+      "default": "12 lakh+ homes"
+    },
+    {
+      "type": "header",
+      "content": "Style & Layout"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review Card",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "label": "Rating (stars)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review title",
+          "default": "Works like a charm"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review quote / body text",
+          "default": "Replaced all my old harsh chemical cleaners with Purelane. The floor cleaner smells amazing and leaves zero sticky residue!"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer name",
+          "default": "Anita"
+        },
+        {
+          "type": "text",
+          "id": "attribution",
+          "label": "Product / Tag attribution",
+          "default": "Laundry detergent"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Works like a charm",
+            "quote": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better.",
+            "reviewer_name": "Anita",
+            "attribution": "Laundry detergent"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Best dishwash ever",
+            "quote": "Our old dishwash left my help with dry, cracked skin. That stopped completely after we switched.",
+            "reviewer_name": "Priya",
+            "attribution": "Dishwash gel"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Great product, great packaging",
+            "quote": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic.",
+            "reviewer_name": "Sunita",
+            "attribution": "Liquid handwash"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Dog friendly",
+            "quote": "We switched because chemical floor cleaners were setting off my dog's allergies. No reactions since.",
+            "reviewer_name": "Rohit S.",
+            "attribution": "Floor cleaner"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Sparkling taps again",
+            "quote": "Hard water had ruined our bathroom fittings. Two sprays and the scale wipes straight off, no scrubbing.",
+            "reviewer_name": "Verified buyer",
+            "attribution": "Tap cleaner"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
