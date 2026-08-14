@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -29,33 +38,32 @@
       "settings": {
         "image_overlay_opacity": 40,
         "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
         "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
+        "show_text_box": false,
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
         "show_text_below": false
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
+        "collection": "all",
+        "products_to_show": 8,
         "title": "Featured products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -63,13 +71,329 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 44,
         "padding_bottom": 36
+      }
+    },
+    "hero_C6TJXt": {
+      "type": "hero",
+      "blocks": {
+        "trust_badge_bkHRb8": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "leaf",
+            "line_1": "Plant",
+            "line_2": "powered"
+          }
+        },
+        "trust_badge_Fp677y": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "shield",
+            "line_1": "Safe for",
+            "line_2": "kids & pets"
+          }
+        },
+        "trust_badge_tKwR4J": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "sparkle",
+            "line_1": "Zero harsh",
+            "line_2": "chemicals"
+          }
+        },
+        "hero_slide_4zUNnA": {
+          "type": "hero_slide",
+          "settings": {
+            "product_1": "foaming-kitchen-cleaner",
+            "product_2": "",
+            "product_3": "",
+            "label": "Single bottle",
+            "discount_tag": ""
+          }
+        },
+        "hero_slide_WhBmHH": {
+          "type": "hero_slide",
+          "settings": {
+            "product_1": "tap-limescale-remover",
+            "product_2": "foaming-kitchen-cleaner",
+            "product_3": "",
+            "label": "Any 2 products",
+            "discount_tag": "Save ₹150"
+          }
+        },
+        "hero_slide_4FWcrD": {
+          "type": "hero_slide",
+          "settings": {
+            "product_1": "copper-bronze-brass-cleaner",
+            "product_2": "foaming-kitchen-cleaner",
+            "product_3": "tap-limescale-remover",
+            "label": "Any 3 products",
+            "discount_tag": "33% off"
+          }
+        }
+      },
+      "block_order": [
+        "trust_badge_bkHRb8",
+        "trust_badge_Fp677y",
+        "trust_badge_tKwR4J",
+        "hero_slide_4zUNnA",
+        "hero_slide_WhBmHH",
+        "hero_slide_4FWcrD"
+      ],
+      "name": "Hero",
+      "settings": {
+        "kicker": "100% Plant-Based Homecare",
+        "heading": "Clean homes, <em>pure</em> living.",
+        "heading_size": "h1",
+        "subheading": "<p>Tough on dirt, gentle on the planet. Thoughtfully formulated with non-toxic botanical ingredients.</p>",
+        "button_label_1": "Shop All Products",
+        "button_link_1": "",
+        "button_style_1": "primary",
+        "button_label_2": "Our Story",
+        "button_link_2": "",
+        "button_style_2": "secondary",
+        "color_scheme": "",
+        "scene_style": "gradient",
+        "background_gradient": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "shop_AE3tXe": {
+      "type": "shop",
+      "name": "Shop",
+      "settings": {
+        "kicker": "Bestsellers",
+        "heading": "Loved by 30,000 homes",
+        "collection": "bestsellers",
+        "product_limit": 8,
+        "columns_desktop": 4,
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "combos_XDMtP4": {
+      "type": "combos",
+      "blocks": {
+        "combo_C7tEW9": {
+          "type": "combo",
+          "settings": {
+            "flag": "Most popular",
+            "title": "Kitchen essentials",
+            "description": "<p>Everything you need for a grease-free, sparkling kitchen.</p>",
+            "product_1": "foaming-kitchen-cleaner",
+            "caption_1": "Cuts grease instantly",
+            "product_2": "copper-bronze-brass-cleaner",
+            "caption_2": "Ultra-concentrated formula",
+            "product_3": "tap-limescale-remover",
+            "caption_3": "Removes hard water stains",
+            "product_4": "",
+            "caption_4": "",
+            "product_5": "",
+            "caption_5": "",
+            "button_label": "Add Combo to Cart",
+            "button_style": "secondary"
+          }
+        },
+        "combo_cWrq3J": {
+          "type": "combo",
+          "settings": {
+            "flag": "Best value",
+            "title": "Laundry care bundle",
+            "description": "<p>Gentle on fabrics, tough on stains. Plant-based laundry care.</p>",
+            "product_1": "plant-based-laundry-detergent",
+            "caption_1": "Stain removal booster",
+            "product_2": "glass-mirror-cleaner",
+            "caption_2": "Natural fabric softener",
+            "product_3": "",
+            "caption_3": "Removes hard water stains",
+            "product_4": "",
+            "caption_4": "",
+            "product_5": "",
+            "caption_5": "",
+            "button_label": "Add Combo to Cart",
+            "button_style": "secondary"
+          }
+        },
+        "combo_Q9KBeh": {
+          "type": "combo",
+          "settings": {
+            "flag": "Save 25%",
+            "title": "Complete home bundle",
+            "description": "<p>Full range of plant-based cleaning solutions for every room.</p>",
+            "product_1": "bathroom-floor-tile-cleaner",
+            "caption_1": "Multi-surface cleaner",
+            "product_2": "hand-wash-citrus-neem",
+            "caption_2": "Glass & mirror shine",
+            "product_3": "foaming-kitchen-cleaner",
+            "caption_3": "Bathroom deep clean",
+            "product_4": "tap-limescale-remover",
+            "caption_4": "Floor sanitizing liquid",
+            "product_5": "",
+            "caption_5": "",
+            "button_label": "Add Combo to Cart",
+            "button_style": "secondary"
+          }
+        }
+      },
+      "block_order": [
+        "combo_C7tEW9",
+        "combo_cWrq3J",
+        "combo_Q9KBeh"
+      ],
+      "name": "Combos",
+      "settings": {
+        "kicker": "Pre-built to save you money",
+        "heading": "Best selling combos",
+        "subheading": "<p>Bundle up on non-toxic homecare essentials and save big on everyday cleaning routines.</p>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "bundles_Wtnqbh": {
+      "type": "bundles",
+      "blocks": {
+        "tier_KdGtYm": {
+          "type": "tier",
+          "settings": {
+            "tag": "Starter",
+            "is_featured": false,
+            "product_count": 2,
+            "flat_price": 899,
+            "compare_at_price": 1099,
+            "features": "Pick any 2 products\nFree shipping included\nSave ₹200 vs buying single items",
+            "button_label": "Build this box",
+            "button_link": ""
+          }
+        },
+        "tier_whE3Ag": {
+          "type": "tier",
+          "settings": {
+            "tag": "Most popular",
+            "is_featured": true,
+            "product_count": 3,
+            "flat_price": 1299,
+            "compare_at_price": 1699,
+            "features": "Pick any 3 products\nFree shipping + 1 free refill\nSave ₹400 (Best value)",
+            "button_label": "Build this box",
+            "button_link": ""
+          }
+        },
+        "tier_7FMNfa": {
+          "type": "tier",
+          "settings": {
+            "tag": "Whole home",
+            "is_featured": false,
+            "product_count": 5,
+            "flat_price": 1999,
+            "compare_at_price": 2699,
+            "features": "Pick any 5 products\nFree shipping + 2 free refills\nSave ₹700 (Max savings)",
+            "button_label": "Build this box",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "tier_KdGtYm",
+        "tier_whE3Ag",
+        "tier_7FMNfa"
+      ],
+      "name": "Bundles",
+      "settings": {
+        "kicker": "Build your bundle",
+        "heading": "One box. Every room.",
+        "subheading": "<p>Choose your essentials, customize your routine, and save big on every shipment.</p>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "reviews_AY4zDk": {
+      "type": "reviews",
+      "blocks": {
+        "review_CGUUYU": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Works like a charm",
+            "quote": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better.",
+            "reviewer_name": "Anita",
+            "attribution": "Laundry detergent"
+          }
+        },
+        "review_FPmXtV": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Best dishwash ever",
+            "quote": "Our old dishwash left my help with dry, cracked skin. That stopped completely after we switched.",
+            "reviewer_name": "Priya",
+            "attribution": "Dishwash gel"
+          }
+        },
+        "review_gBrN8i": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Great product, great packaging",
+            "quote": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic.",
+            "reviewer_name": "Sunita",
+            "attribution": "Liquid handwash"
+          }
+        },
+        "review_KeG6Fw": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Dog friendly",
+            "quote": "We switched because chemical floor cleaners were setting off my dog's allergies. No reactions since.",
+            "reviewer_name": "Rohit S.",
+            "attribution": "Floor cleaner"
+          }
+        },
+        "review_7GRWnj": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Sparkling taps again",
+            "quote": "Hard water had ruined our bathroom fittings. Two sprays and the scale wipes straight off, no scrubbing.",
+            "reviewer_name": "Verified buyer",
+            "attribution": "Tap cleaner"
+          }
+        }
+      },
+      "block_order": [
+        "review_CGUUYU",
+        "review_FPmXtV",
+        "review_gBrN8i",
+        "review_KeG6Fw",
+        "review_7GRWnj"
+      ],
+      "name": "Reviews",
+      "settings": {
+        "kicker": "That's what they said",
+        "aggregate_rating": "4.8",
+        "aggregate_review_count": "8,000+ reviews",
+        "homes_count": "12 lakh+ homes",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
       }
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "featured_collection",
+    "hero_C6TJXt",
+    "shop_AE3tXe",
+    "combos_XDMtP4",
+    "bundles_Wtnqbh",
+    "reviews_AY4zDk"
   ]
 }
